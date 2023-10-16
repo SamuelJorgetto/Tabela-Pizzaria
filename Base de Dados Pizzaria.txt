@@ -1,0 +1,87 @@
+CREATE TABLE Pizzaiolo(
+ID NUMBER,
+NOME VARCHAR(50),
+SALARIO DECIMAL(10, 2)
+);
+ INSERT INTO Pizzaiolo(ID , NOME, SALARIO) VALUES( 1 , 'Joao Pereira',2000.00 );
+ INSERT INTO Pizzaiolo(ID , NOME, SALARIO) VALUES( 2 , 'Rafael Lucas',2500.00 );
+ INSERT INTO Pizzaiolo(ID , NOME, SALARIO) VALUES( 3 , 'Laura Amanda',3000.00 );
+ commit;
+ 
+ 
+CREATE TABLE RECEITA(
+ID NUMBER,
+INSTRUCAO VARCHAR(50),
+AUTOR VARCHAR(50)
+);
+
+INSERT INTO RECEITA(ID , INSTRUCAO, AUTOR) VALUES ( 1 , 'Prepare o Molho com tomates interbacionais e ketchup', 'Erick Jacquan');
+INSERT INTO RECEITA(ID , INSTRUCAO, AUTOR) VALUES ( 2, 'Prepare a massa com antecedência e a temperatura ambiente', 'Laura Amanda');
+INSERT INTO RECEITA(ID , INSTRUCAO, AUTOR) VALUES ( 3 , 'Sepere os ingredientes e depois aqueça no forno', 'Pablo Afonso');
+commit;
+
+
+CREATE TABLE PIZZA (
+ID NUMBER,
+TAMANHO NUMBER,
+DESCRICAO VARCHAR(50),
+PRECO DECIMAL (10 ,2 ),
+SABOR VARCHAR(50),
+INGREDIENTE VARCHAR(50),
+EMBALAGEM VARCHAR(50),
+MATERIAL VARCHAR(50)
+);
+
+INSERT INTO PIZZA (ID, TAMANHO, DESCRICAO, PRECO, SABOR, INGREDIENTE, EMBALAGEM, MATERIAL)
+VALUES (1, 12, 'Pizza de Calabresa', 25.00, 'Calabresa', 'Molho de tomate, calabresa, queijo', 'Caixa de papelão', 'Papelão');
+
+INSERT INTO PIZZA (ID, TAMANHO, DESCRICAO, PRECO, SABOR, INGREDIENTE, EMBALAGEM, MATERIAL)
+VALUES (2, 16, 'Pizza de Mussarela', 30.00, 'Mussarela', 'Molho de tomate, mussarela, orégano', 'Caixa de papelão', 'Papelão');
+
+INSERT INTO PIZZA (ID, TAMANHO, DESCRICAO, PRECO, SABOR, INGREDIENTE, EMBALAGEM, MATERIAL)
+VALUES (3, 14, 'Pizza de Frango Catupiry', 35.00, 'Frango Catupiry', 'Molho de tomate, frango desfiado, catupiry', 'Caixa de papelão', 'Papelão');
+
+INSERT INTO PIZZA (ID, TAMANHO, DESCRICAO, PRECO, SABOR, INGREDIENTE, EMBALAGEM, MATERIAL)
+VALUES (4, 18, 'Pizza de Quatro Queijos', 40.00, 'Quatro Queijos', 'Molho de tomate, mussarela, provolone, gorgonzola, parmesão', 'Caixa de papelão', 'Papelão');
+
+INSERT INTO PIZZA (ID, TAMANHO, DESCRICAO, PRECO, SABOR, INGREDIENTE, EMBALAGEM, MATERIAL)
+VALUES (5, 12, 'Pizza de Margherita', 28.00, 'Margherita', 'Molho de tomate, mussarela, manjericão fresco', 'Caixa de papelão', 'Papelão');
+
+INSERT INTO PIZZA (ID, TAMANHO, DESCRICAO, PRECO, SABOR, INGREDIENTE, EMBALAGEM, MATERIAL)
+VALUES (6, 16, 'Pizza de Pepperoni', 32.00, 'Pepperoni', 'Molho de tomate, pepperoni, queijo', 'Caixa de papelão', 'Papelão');
+COMMIT;
+
+
+SELECT 
+B.NOME,
+A.DESCRICAO,
+A.SABOR
+FROM PIZZA A 
+INNER JOIN PIZZAIOLO B ON 
+A.ID = B.ID ; 
+--  todas as pizzas e os pizzaiolos aptos a produzi-las
+
+SELECT
+INGREDIENTES,
+DESCRICAO
+FROM PIZZA;
+-- todas as pizzas e seus ingredientes
+
+SELECT
+    A.INGREDIENTE,
+    B.INSTRUCAO
+FROM  PIZZA A 
+INNER JOIN RECEITA B ON 
+A.ID = B.ID;
+--  todos os ingredientes e as pizzas onde são utilizados
+
+SELECT 
+B.NOME,
+A.SABOR,
+C.INSTRUCAO
+FROM PIZZA A
+INNER JOIN PIZZAIOLO B ON 
+A.ID = B.ID
+INNER JOIN RECEITA C ON 
+A.ID = C.ID
+--  com os sabores de todas as pizzas, o nome dos pizzaiolos que as fazem e as instruções para produzi-las
